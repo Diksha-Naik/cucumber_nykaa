@@ -36,7 +36,6 @@ Feature: Nykaa Brand And Luxe Feature
     And The user can able to add product to cart
     Then The selected item should be displayed in bad
 
-#  HashMap<String, String> data = TestDataReader.getData("TextBox");
 
   Scenario: Verify that the user can able to select product
     Given The user navigate to the home page of nykaa

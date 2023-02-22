@@ -176,7 +176,7 @@ public class StepDefination {
     public void the_user_should_able_to_click_on_toner() throws InterruptedException {
         url6 = QaProps.getValue("url6");
         nykaaPage.getToner().click();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         driver.getCurrentUrl();
         driver.get(url6);
         currentWindow = driver.getWindowHandle();
