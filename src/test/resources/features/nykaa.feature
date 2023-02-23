@@ -1,6 +1,7 @@
-Feature: Nykaa Brand And Luxe Feature
+Feature: Nykaa Brand And help Feature
 
   Background: User should get the link
+
 
   Scenario: Verify that the user is able to work with Brand
     Given The user navigate to the home page of nykaa
@@ -13,28 +14,35 @@ Feature: Nykaa Brand And Luxe Feature
     And The user can able to click on Nykaa Cosmetics
     Then the user should get Nykaa Cosmetics page
 
-  Scenario:Verify that the user able to work with the Luxe
-    Given The user navigate to the home page of nykaa
-    When The user can able to hover the cursor on luxe
-    Then The user should get the menu page of luxe
-    And The user can able to hover the cursor on Fragrance
-    Then The user should get the menu page of Fragrance
-    And The user can able to click on deodorant
-    Then The user should get deodorant page
-    And The user can able to click in on luxe
-    Then The user should redirect to luxe main page and come back to the main page
 
 
-  Scenario:Verify that the user able to select product and add to bag
+
+  Scenario:Verify that the user able search product in brand drop down
     Given The user navigate to the home page of nykaa
-    When The user can able to hover the cursor on luxe and than on skin
-    Then The user should get luxe skin page
-    And The user should able to click on Toner
-    Then The User should get the toner page
-    And The user can able to click on brand and select the NUXE
-    Then The selected item should display
-    And The user can able to add product to cart
-    Then The selected item should be displayed in bad
+    When The user can able to hover the cursor over Brand
+    Then The menu page of brand should be displayed
+    And The user can able to search in brand of nykaa
+    And the user can able to clck on Lakme
+    Then The user will get the lakme page
+    And The user can again able to hover the cursor over brand
+    And The user should click on letter L
+    Then The L letter item should display
+    And The user can able to click on LOrealParis
+    Then The LOrealParis page should be displayed in bad
+
+
+
+
+  @smoke
+  Scenario: Verify that the user able to work with the help
+    Given The user navigate to the home page of nykaa
+    When The user can navigate to help page
+    And The user can able to click on order related issue
+    Then The order Issue page should displayed
+    And The user can able to click on order
+    Then Order page should be displayed
+
+
 
 
   Scenario: Verify that the user can able to select product
@@ -43,6 +51,9 @@ Feature: Nykaa Brand And Luxe Feature
     Then The user should get the deodorant page
     And The user can able to filter the product according to need
     Then The product should be displyed
+
+
+
 
   Scenario: Verify that user can able to enter valid and invalid pin Code
     Given The user navigate to the home page of nykaa
@@ -53,7 +64,10 @@ Feature: Nykaa Brand And Luxe Feature
     And The user can add correct pin Code
     Then The user should get the place name
 
-@smoke
+
+
+
+
   Scenario Outline: Verify That user can search for FAQ in support page
     Given The user is able to goto the nykaa support page
     When The user can able to add the Queries in "<searchFAQ>"
@@ -65,10 +79,6 @@ Feature: Nykaa Brand And Luxe Feature
     |Bath Soap|
     |How to Use the website|
     |How to Log in|
-
-
-
-
 
 
 

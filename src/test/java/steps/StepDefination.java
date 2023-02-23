@@ -10,8 +10,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import pages.NykaaPage;
 import utils.*;
@@ -37,17 +39,20 @@ public class StepDefination {
         this.scenario = scenario;
     }
 
+//Verify that the user is able to work with Brand
     @Given("The user navigate to the home page of nykaa")
     public void the_user_navigate_to_the_home_page_of_nykaa() {
         url = QaProps.getValue("url");
         driver.get(url);
+        nykaaPage = new NykaaPage(driver);
+        action = new Actions(driver);
+        data = TestDataReader.getData(scenario.getName());
 
     }
 
     @When("The user can able to hover the cursor on Brand")
     public void the_user_can_able_to_hover_the_cursor_on_brand() {
-        nykaaPage = new NykaaPage(driver);
-        action = new Actions(driver);
+
         action.moveToElement(nykaaPage.getHooverOnBrand()).build().perform();
 
     }
@@ -67,9 +72,8 @@ public class StepDefination {
     }
 
     @Then("The user should get the Maybelline Page")
-    public void the_user_should_get_the_maybelline_page() throws InterruptedException {
+    public void the_user_should_get_the_maybelline_page(){
         WebElement MaybellinePage = nykaaPage.getMaybellinePage();
-        //Thread.sleep(2000);
         WaitUtil.waitTillVisible(driver,nykaaPage.getMaybellinePage());
         Assert.assertTrue(MaybellinePage.isDisplayed());
 
@@ -104,123 +108,84 @@ public class StepDefination {
 
     }
 
+    //Verify that the user able search product in brand drop down
+  @When("The user can able to hover the cursor over Brand")
+  public void the_user_can_able_to_hover_the_cursor_over_brand() {
+      action.moveToElement(nykaaPage.getHooverOnBrand()).build().perform();
+  }
+    @Then("The menu page of brand should be displayed")
+    public void the_menu_page_of_brand_should_be_displayed() {
+        WebElement menuPage = nykaaPage.getDisplayMenuPage();
+        Assert.assertTrue(menuPage.isDisplayed());
+    }
+    @Then("The user can able to search in brand of nykaa")
+    public void the_user_can_able_to_search_in_brand_of_nykaa() {
 
-    @When("The user can able to hover the cursor on luxe")
-    public void the_user_can_able_to_hover_the_cursor_on_luxe()  {
-        nykaaPage = new NykaaPage(driver);
-        action = new Actions(driver);
-       WaitUtil.waitTillVisible(driver,nykaaPage.getLuxe());
-        action.moveToElement(nykaaPage.getLuxe()).build().perform();
+        WaitUtil.waitTillVisible(driver,nykaaPage.getBrandSearchBox());
+  nykaaPage.getBrandSearchBox().sendKeys(data.get("BrandSearchBoxInput"));
+    }
+    @And("the user can able to clck on Lakme")
+    public void the_user_can_able_to_clck_on_lakme() {
+        Wait wait1 = new FluentWait(driver)
+      .withTimeout(10, TimeUnit.SECONDS)
+      .pollingEvery(2, TimeUnit.SECONDS)
+     .ignoring(Exception.class);
+  ClickUtil.click(driver,nykaaPage.getLakme());
+    }
+    @Then("The user will get the lakme page")
+    public void the_user_will_get_the_lakme_page() {
+        WebElement menu3 = nykaaPage.getLakmePage();
+  Assert.assertTrue(menu3.isDisplayed());
+    }
+    @And("The user can again able to hover the cursor over brand")
+    public void the_user_can_again_able_to_hover_the_cursor_over_brand() {
+        driver.get(url);
+  action.moveToElement(nykaaPage.getHooverOnBrand()).build().perform();
+    }
+    @And("The user should click on letter L")
+    public void the_user_should_click_on_letter_l() {
+        action.moveToElement(nykaaPage.getLetterL()).build().perform();
+    }
+    @Then("The L letter item should display")
+    public void the_l_letter_item_should_display() {
+        Assert.assertTrue(nykaaPage.getLNameBrand().isDisplayed());
+    }
+    @And("The user can able to click on LOrealParis")
+    public void the_user_can_able_to_click_on_l_oreal_paris() {
+        ClickUtil.click(driver,nykaaPage.getLOrealParis());
+    }
+    @Then("The LOrealParis page should be displayed in bad")
+    public void the_l_oreal_paris_page_should_be_displayed_in_bad() {
+        Assert.assertTrue(nykaaPage.getLOrealParispage().isDisplayed());
     }
 
-    @Then("The user should get the menu page of luxe")
-    public void the_user_should_get_the_menu_page_of_luxe() {
-        WebElement menu6 = nykaaPage.getLuxePage();
-        Assert.assertTrue(menu6.isDisplayed());
+//Verify that the user able to work with the help
+@When("The user can navigate to help page")
+public void the_user_can_navigate_to_help_page() {
+    url5 = QaProps.getValue("url5");
+    driver.get(url5);
+}
+    @When("The user can able to click on order related issue")
+    public void the_user_can_able_to_click_on_order_related_issue() {
+        ClickUtil.click(driver,nykaaPage.getOrderRelatedIssue());
+    }
+    @Then("The order Issue page should displayed")
+    public void the_order_issue_page_should_displayed() {
+        Assert.assertTrue(nykaaPage.getOrderIssue().isDisplayed());
+    }
+    @And("The user can able to click on order")
+    public void the_user_can_able_to_click_on_order() {
+       ClickUtil.click(driver,nykaaPage.getClickOnOrder());
+    }
+    @Then("Order page should be displayed")
+    public void order_page_should_be_displayed() {
+        String text1=nykaaPage.getOrderPage().getText();
+     Assert.assertEquals(text1,data.get("ExceptedResult"));
     }
 
-    @And("The user can able to hover the cursor on Fragrance")
-    public void the_user_can_able_to_hover_the_cursor_on_fragrance() {
-        action.moveToElement(nykaaPage.getFragrance()).build().perform();
-    }
-
-    @Then("The user should get the menu page of Fragrance")
-    public void the_user_should_get_the_menu_page_of_fragrance() {
-        Assert.assertTrue(nykaaPage.getFragrancePage().isDisplayed());
-    }
-
-    @And("The user can able to click on deodorant")
-    public void the_user_can_able_to_click_on_deodorant()  {
-        WaitUtil.waitTillVisible(driver,nykaaPage.getDeodorants());
-        nykaaPage.getDeodorants().click();
-    }
-
-    @Then("The user should get deodorant page")
-    public void the_user_should_get_deodorant_page() {
-        Assert.assertTrue(nykaaPage.getDeodorantsPage().isDisplayed());
-    }
-
-    @And("The user can able to click in on luxe")
-    public void the_user_can_able_to_click_in_on_luxe()  {
-        url4 = QaProps.getValue("url4");
-        ClickUtil.click(driver,nykaaPage.getLuxe());
-        driver.getCurrentUrl();
-        driver.get(url4);
-    }
-
-    @Then("The user should redirect to luxe main page and come back to the main page")
-    public void the_user_should_redirect_to_luxe_main_page_and_come_back_to_the_main_page() {
-        data = TestDataReader.getData(scenario.getName());
-        Assert.assertEquals(nykaaPage.getLuxeMainPage().getText(), data.get("ExceptedResultOfLuxePage"));
-        currentWindow = driver.getWindowHandle();
-        driver.switchTo().window(currentWindow);
-
-    }
-
-
-    @When("The user can able to hover the cursor on luxe and than on skin")
-    public void the_user_can_able_to_hover_the_cursor_on_luxe_and_than_on_skin()  {
-        nykaaPage = new NykaaPage(driver);
-        action = new Actions(driver);
-        WaitUtil.waitTillVisible(driver,nykaaPage.getLuxe());
-        action.moveToElement(nykaaPage.getLuxe()).build().perform();
-        action.moveToElement(nykaaPage.getLuxeSkinButton()).build().perform();
-    }
-
-    @Then("The user should get luxe skin page")
-    public void the_user_should_get_luxe_skin_page() {
-        Assert.assertTrue(nykaaPage.getSkinPage().isDisplayed());
-    }
-
-    @And("The user should able to click on Toner")
-    public void the_user_should_able_to_click_on_toner()  {
-        url6 = QaProps.getValue("url6");
-        nykaaPage.getToner().click();
-        driver.getCurrentUrl();
-        driver.get(url6);
-        currentWindow = driver.getWindowHandle();
-        driver.switchTo().window(currentWindow);
-    }
-
-    @Then("The User should get the toner page")
-    public void the_user_should_get_the_toner_page() {
-        Assert.assertTrue(nykaaPage.getTonerPage().isDisplayed());
-    }
-
-    @And("The user can able to click on brand and select the NUXE")
-    public void the_user_can_able_to_click_on_brand_and_select_the_nuxe() {
-        ClickUtil.click(driver,nykaaPage.getTonerBrand());
-        ClickUtil.click(driver,nykaaPage.getNuxeProduct());
-    }
-
-    @Then("The selected item should display")
-    public void the_selected_item_should_display()  {
-        WaitUtil.waitTillVisible(driver,nykaaPage.getNuxePage());
-        Assert.assertTrue(nykaaPage.getNuxePage().isDisplayed());
-
-    }
-
-    @And("The user can able to add product to cart")
-    public void the_user_can_able_to_add_product_to_cart()  {
-        WaitUtil.waitTillVisible(driver,nykaaPage.getHoverOverProduct());
-        action.moveToElement(nykaaPage.getHoverOverProduct()).build().perform();
-        ClickUtil.click(driver,nykaaPage.getAddToBag());
-        WaitUtil.waitTillVisible(driver,nykaaPage.getBag());
-        ClickUtil.click(driver,nykaaPage.getBag());
-
-    }
-
-    @Then("The selected item should be displayed in bad")
-    public void the_selected_item_should_be_displayed_in_bad() {
-        WaitUtil.waitTillVisible(driver,nykaaPage.getBagpage());
-        Assert.assertTrue(nykaaPage.getBagpage().isDisplayed());
-    }
-
-
+//Verify that the user is able to select product
     @When("The user can able to goto deodorant page")
     public void the_user_can_able_to_goto_deodorant_page() {
-        nykaaPage = new NykaaPage(driver);
-        action = new Actions(driver);
         url2 = QaProps.getValue("url2");
         driver.get(url2);
     }
@@ -247,12 +212,10 @@ public class StepDefination {
         Assert.assertTrue(nykaaPage.getJeanPaulGaultierPage().isDisplayed());
 
     }
-
+//Verify that user is able to enter valid and invalid pin Code
     @When("The user can able to click the jean page and click on check pin Code")
     public void the_user_can_able_to_click_the_jean_page_and_click_on_check_pin_code() {
 
-        nykaaPage = new NykaaPage(driver);
-        action = new Actions(driver);
         url3 = QaProps.getValue("url3");
         driver.get(url3);
         ClickUtil.click(driver,nykaaPage.getCheckButton());
@@ -260,7 +223,7 @@ public class StepDefination {
 
     @Then("The Error message should be displayed that {string}")
     public void the_error_message_should_be_displayed_that(String string) {
-        data = TestDataReader.getData(scenario.getName());
+
         String text = nykaaPage.getErrorMessage().getText();
         Assert.assertEquals(text, data.get("ExceptedNullError"));
     }
@@ -298,11 +261,12 @@ public class StepDefination {
         String text3 = nykaaPage.getCorrectPinErrorMessage().getText();
         Assert.assertEquals(text3, data.get("ExceptedRightPin"));
     }
-
+//Verify That user can search for FAQ in support page
     @Given("The user is able to goto the nykaa support page")
     public void the_user_is_able_to_goto_the_nykaa_support_page() {
         url5 = QaProps.getValue("url5");
         driver.get(url5);
+
     }
     @When("The user can able to add the Queries in {string}")
     public void the_user_can_able_to_add_the_queries_in(String searchFAQ) {
