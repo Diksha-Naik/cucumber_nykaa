@@ -69,7 +69,8 @@ public class StepDefination {
     @Then("The user should get the Maybelline Page")
     public void the_user_should_get_the_maybelline_page() throws InterruptedException {
         WebElement MaybellinePage = nykaaPage.getMaybellinePage();
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        WaitUtil.waitTillVisible(driver,nykaaPage.getMaybellinePage());
         Assert.assertTrue(MaybellinePage.isDisplayed());
 
     }
@@ -140,10 +141,9 @@ public class StepDefination {
     }
 
     @And("The user can able to click in on luxe")
-    public void the_user_can_able_to_click_in_on_luxe() throws InterruptedException {
+    public void the_user_can_able_to_click_in_on_luxe()  {
         url4 = QaProps.getValue("url4");
         ClickUtil.click(driver,nykaaPage.getLuxe());
-        Thread.sleep(2000);
         driver.getCurrentUrl();
         driver.get(url4);
     }
@@ -173,10 +173,9 @@ public class StepDefination {
     }
 
     @And("The user should able to click on Toner")
-    public void the_user_should_able_to_click_on_toner() throws InterruptedException {
+    public void the_user_should_able_to_click_on_toner()  {
         url6 = QaProps.getValue("url6");
         nykaaPage.getToner().click();
-        Thread.sleep(2000);
         driver.getCurrentUrl();
         driver.get(url6);
         currentWindow = driver.getWindowHandle();
@@ -315,7 +314,7 @@ public class StepDefination {
         WebElement Input=nykaaPage.getHelp();
         Input.sendKeys(searchFAQ);
     }
-    @When("The user can able to click on Enter")
+    @And("The user can able to click on Enter")
     public void the_user_can_able_to_click_on_enter() {
         nykaaPage.getHelp().sendKeys(Keys.ENTER);
     }
