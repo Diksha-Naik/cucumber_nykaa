@@ -135,6 +135,7 @@ public class StepDefination {
     @Then("The user will get the lakme page")
     public void the_user_will_get_the_lakme_page() {
         WebElement menu3 = nykaaPage.getLakmePage();
+        WaitUtil.waitTillVisible(driver,nykaaPage.getLakmePage());
   Assert.assertTrue(menu3.isDisplayed());
     }
     @And("The user can again able to hover the cursor over brand")
@@ -271,10 +272,7 @@ public void the_user_can_navigate_to_help_page() {
     @When("The user can able to add the Queries in {string}")
     public void the_user_can_able_to_add_the_queries_in(String searchFAQ) {
         nykaaPage = new NykaaPage(driver);
-       Wait wait1 = new FluentWait(driver)
-               .withTimeout(10, TimeUnit.SECONDS)
-              .pollingEvery(2, TimeUnit.SECONDS)
-               .ignoring(Exception.class);
+       WaitUtil.fluentWait(driver,nykaaPage.getHelp());
         WebElement Input=nykaaPage.getHelp();
         Input.sendKeys(searchFAQ);
     }
